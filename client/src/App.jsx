@@ -13,6 +13,7 @@ import InvitesRoutes from './Invites/InvitesRoutes';
 import PasswordsRoutes from './Passwords/PasswordsRoutes';
 import Register from './Register';
 import UsersRoutes from './Users/UsersRoutes';
+import Restaurants from "./Restaurants";
 
 function App() {
   const staticContext = useStaticContext();
@@ -33,6 +34,7 @@ function App() {
                 {staticContext?.env?.VITE_FEATURE_REGISTRATION === 'true' && <Route path="/register" element={<Register />} />}
                 <Route path="/account/*" element={<UsersRoutes />} />
                 <Route path="/admin/*" element={<AdminRoutes />} />
+                <Route path="/restaurants" element={<Restaurants></Restaurants>}></Route>
               </Routes>
             </AppRedirects>
           }
