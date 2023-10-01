@@ -1,13 +1,12 @@
+import Cards from "./Cards";
+
 function Restaurants(){
     return (
-    <div> 
-        <p>HELLO WORLD</p>
-        <p>HELLO WORLD</p>
-        <p>HELLO WORLD</p>
-        <p>HELLO WORLD</p>
-        <p>HELLO WORLD</p>
-        <p>HELLO WORLD</p>
-    </div>);
+        <>
+        <h2 className="text-center">Restaurants</h2>
+        <Cards></Cards>
+        </>
+    )
 }
 
 export default Restaurants;
