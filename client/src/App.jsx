@@ -14,6 +14,8 @@ import PasswordsRoutes from './Passwords/PasswordsRoutes';
 import Register from './Register';
 import UsersRoutes from './Users/UsersRoutes';
 import Restaurants from "./Restaurants";
+import Create from "./Create";
+import Detail from './Detail';
 
 function App() {
   const staticContext = useStaticContext();
@@ -35,6 +37,8 @@ function App() {
                 <Route path="/account/*" element={<UsersRoutes />} />
                 <Route path="/admin/*" element={<AdminRoutes />} />
                 <Route path="/restaurants" element={<Restaurants></Restaurants>}></Route>
+                <Route path="/create" element={<Create></Create>}></Route>
+                <Route path="/restaurants/:id" element={<Detail></Detail>}></Route>
               </Routes>
             </AppRedirects>
           }

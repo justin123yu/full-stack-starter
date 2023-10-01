@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import {Link} from "react-router-dom"
 async function getData() {
   var records;
   const options = {
@@ -40,10 +41,13 @@ function Cards(){
           {data.map((items) =>
             <div className="col" key={items.id}>
               <div className="card h-100">
-                <img className="card-img-top" src={items.fields.Photo[0].url} style={{width: 29.2+"rem", height: 18 + "rem"}}></img>
+                <img className="card-img-top" src={items.fields.Photo[0].url} style={{height: 20 + "rem"}}></img>
                 <div className="card-body">
                   <h5 className="card-title text-center">{items.fields.Name}</h5>
                   <p className="card-text">{items.fields.Comments}</p>
+                  <div className="card-footer text-body-secondary">
+                    <Link className='btn btn-primary' to={"/restaurants/" + items.id}> Detail</Link>
+                  </div>
                 </div>
               </div>
             </div>)
