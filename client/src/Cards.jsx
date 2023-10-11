@@ -1,27 +1,30 @@
 import { useState, useEffect } from "react";
-import {Link} from "react-router-dom"
-async function getData() {
-  var records;
-  const options = {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer patuEwy7sqnjZ1KI4.68dc2c53f740ec17428f1ca05b7a15fd13dab8ccce2ef57630907ac4982ddbc0`
-    }
-  };
-
-  await fetch('https://api.airtable.com/v0/appWF1wQ4ozIpCeq3/Resturant?sort%5B0%5D%5Bfield%5D=Name&sort%5B0%5D%5Bdirection%5D=asc', options)
-    .then(response => response.json())
-    .then(data => records = data)
-    .catch(err => console.error(err));
-  return records;
-  
-  
-}
+import {Link} from "react-router-dom";
+import { useStaticContext } from './StaticContext';
 
 function Cards(){
 
     const [data, setData] = useState(null)
     const [isLoading, setLoading] = useState(false)
+    const staticContext = useStaticContext();
+    async function getData() {
+      var records;
+      const options = {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${staticContext?.env?.VITE_AIRTABLE_API}`
+        }
+      };
+    
+      await fetch('https://api.airtable.com/v0/appWF1wQ4ozIpCeq3/Resturant?sort%5B0%5D%5Bfield%5D=Name&sort%5B0%5D%5Bdirection%5D=asc', options)
+        .then(response => response.json())
+        .then(data => records = data)
+        .catch(err => console.error(err));
+      return records;
+      
+      
+    }
+    
   
     useEffect(() => {
       setLoading(true)

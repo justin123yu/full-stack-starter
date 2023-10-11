@@ -1,21 +1,8 @@
 import {useParams} from "react-router-dom"
 import { useEffect , useState } from "react";
+import { useStaticContext } from './StaticContext';
 
-async function getData(id) {
-    var records;
-    const options = {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer patuEwy7sqnjZ1KI4.68dc2c53f740ec17428f1ca05b7a15fd13dab8ccce2ef57630907ac4982ddbc0`
-      }
-    };
-  
-    await fetch("https://api.airtable.com/v0/appWF1wQ4ozIpCeq3/Resturant/"+id, options)
-      .then(res => res.json())
-      .then(data => records = data)
-      .catch(err => console.error(err));
-    return records;
-}
+
 
 
 function Detail(){
@@ -23,6 +10,24 @@ function Detail(){
     const [restaurant, setRestaurant] = useState(null)
     const [isLoading, setLoading] = useState(false)
     const [toggle, setToggle] = useState(false);
+
+    const staticContext = useStaticContext();
+
+    async function getData(id) {
+        var records;
+        const options = {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${staticContext?.env?.VITE_AIRTABLE_API}`
+          }
+        };
+      
+        await fetch("https://api.airtable.com/v0/appWF1wQ4ozIpCeq3/Resturant/"+id, options)
+          .then(res => res.json())
+          .then(data => records = data)
+          .catch(err => console.error(err));
+        return records;
+    }
 
     const handleClick = () => {
         setToggle(!toggle);
