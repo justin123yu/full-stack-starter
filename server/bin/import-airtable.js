@@ -15,7 +15,7 @@ fetch(url, options)
         await models.Restaurant.create({
             Name: record.fields.Name,
             Location: record.fields.Location,
-            Comment: record.fields.Comment,
+            Comment: record.fields.Comments,
             Rating: record.fields.Rating,
             Map: record.fields.Map,
         })
