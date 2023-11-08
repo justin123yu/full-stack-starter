@@ -1,6 +1,10 @@
 #!/usr/bin/env node
-import fetch from "node-fetch"
-import models from "../models/index.js"
+import fetch from "node-fetch";
+import models from "../models/index.js";
+import path from  "path";
+import {unlink, writeFile} from "fs/promises";
+import s3 from "../lib/s3.js";
+
 const options = {
     method: 'GET',
     headers: {
@@ -12,12 +16,32 @@ fetch(url, options)
   .then((response) => response.json())
   .then(async (data) => {
     for(const record of data.records){
+      let Attachments;
+      if (record.fields.Photo.length > 0) {
+        const attachment = record.fields.Photo[0];
+        const { filename, url } = attachment;
+        const filePath = path.resolve(filename);
+        try {
+          const response = await fetch(url);
+          const arrayBuffer = await response.arrayBuffer();
+          await writeFile(filePath, Buffer.from(arrayBuffer));
+          const key = path.join('uploads', filename);
+          await s3.putObject(key, filePath);
+          Attachments = filename;
+        } catch (err) {
+          console.log(err);
+        } finally {
+          await unlink(filePath);
+        }
+      }
+
         await models.Restaurant.create({
             Name: record.fields.Name,
             Location: record.fields.Location,
             Comment: record.fields.Comments,
             Rating: record.fields.Rating,
             Map: record.fields.Map,
+            Photo: Attachments
         })
     }
   })

@@ -21,5 +21,11 @@ export default function (sequelize, DataTypes){
     sequelize,
     modelName: 'Restaurant',
   });
+
+  Restaurant.afterSave(async (record, options) => {
+    record.handleAssetFile('Attachments', options);
+  });
+
+
   return Restaurant;
 };
