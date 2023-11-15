@@ -14,6 +14,12 @@ export default function (sequelize, DataTypes){
     Name: DataTypes.STRING,
     Location: DataTypes.STRING,
     Photo: DataTypes.STRING,
+    PhotoUrl:{
+      type: DataTypes.VIRTUAL,
+        get(){
+          return this.assetUrl('Photo');
+        }
+    },
     Rating: DataTypes.INTEGER,
     Comment: DataTypes.TEXT,
     Map: DataTypes.TEXT
@@ -23,7 +29,7 @@ export default function (sequelize, DataTypes){
   });
 
   Restaurant.afterSave(async (record, options) => {
-    record.handleAssetFile('Attachments', options);
+    record.handleAssetFile('Photo', options);
   });
 
 

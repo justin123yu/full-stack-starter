@@ -45,4 +45,3 @@ fetch(url, options)
         })
     }
   })
-console.log('hello world');

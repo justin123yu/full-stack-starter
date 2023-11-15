@@ -1,10 +1,24 @@
+import React, { useState } from "react";
+
 export default function Create(){
+  const [formData, setFormData] = useState({ Name: "",
+    Location: "",
+    Photo: "",
+    Rating: "",
+    Comment: "",
+    Map: ""});
+
     return (
     <main>
-    <script src="https://static.airtable.com/js/embed/embed_snippet_v1.js" crossOrigin="anonymous"></script>
-    <iframe className="airtable-embed airtable-dynamic-height" 
-    src="https://airtable.com/embed/appWF1wQ4ozIpCeq3/shrftNo8gtCahNnhh?backgroundColor=green" 
-     width="100%" height="1115"></iframe>
+      <>
+      <form className="row-col-3 text-left">
+          <div className="mb-3">
+            <label className="form-label">Restaurant Name</label>
+            <input type="text" className="form-control" id="Name" name="Name" aria-describedby="Name"></input>
+          </div>
+          <button type="submit" className="btn btn-primary">Submit</button>
+        </form>
+      </>
   </main>
     )
 }
