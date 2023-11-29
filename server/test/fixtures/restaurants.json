@@ -4,8 +4,7 @@
         "data": {
             "id": 1000,
             "Name": "Applebee's",
-            "Location": "1234 Main St",
-            "Photo": "Applebees.jpg"
+            "Location": "1234 Main St"
         }
     },
     {
@@ -13,8 +12,7 @@
         "data": {
             "id": 1001,
             "Name": "PapaJohns's",
-            "Location": "4321 Main St",
-            "Photo": "PapaJohns.jpg"
+            "Location": "4321 Main St"
         }
     }
     

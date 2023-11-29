@@ -3,8 +3,6 @@ import { StatusCodes } from 'http-status-codes';
 import _ from 'lodash';
 
 import models from '../../models/index.js';
-import interceptors from '../interceptors.js';
-import helpers from '../helpers.js';
 
 const router = express.Router();
 
@@ -15,31 +13,49 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try{
-        const records = await models.Restaurant.findByPk(req.params.id);
-        res.json(records);
+        const record = await models.Restaurant.findByPk(req.params.id);
+        res.json(record);
     }
     catch (err) {
         console.log(err);
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: err });
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).end();
     }
 });
 
-router.post('/create', async (req, res) => {
-    let restaurant = {
-        Name: req.body.Name,
-        Location: req.body.Location,
-        Photo: req.body.Photo,
-        Rating: req.body.Rating,
-        Comment: req.body.Comment,
-        Map: req.body.Map
-      };
-      try{
-        const records = await models.Restaurant.create(restaurant);
-        res.sendStatus(StatusCodes.CREATED);
-        res.redirect('/restaurants');
+router.patch('/:id', async (req, res) => {
+    try{
+        const record = await models.Restaurant.findByPk(req.params.id);
+        await record.update(_.pick(req.body, [
+          "Name", "Location", "Rating", "Comment", "Map"
+        ]));
+        res.json(record);
       } catch (err){
         console.log(err);
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: err });
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).end();
+      }
+});
+
+router.delete('/:id', async (req, res) => {
+    try{
+        const record = await models.Restaurant.findByPk(req.params.id);
+        await record.destroy();
+        res.status(StatusCodes.OK).end();
+      } catch (err){
+        console.log(err);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).end();
+      }
+});
+
+router.post('/', async (req, res) => {
+
+      try{
+        const record = await models.Restaurant.create(_.pick(req.body, [
+          "Name", "Location", "Rating", "Comment", "Map"
+        ]));
+        res.status(StatusCodes.CREATED).json(record);
+      } catch (err){
+        console.log(err);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).end();
       }
 });
 
