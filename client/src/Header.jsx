@@ -51,11 +51,6 @@ function Header() {
         </button>
         <div className={classNames('collapse navbar-collapse', { show: isNavbarShowing })}>
           <ul className="navbar-nav flex-grow-1 mb-2 mb-md-0">
-            <li className="nav-item active">
-              <Link className="nav-link" aria-current="page" to="/" onClick={hideNavbar}>
-                Home
-              </Link>
-            </li>
             <li className="nav-item ">
               <Link className="nav-link" to="/restaurants" onClick={hideNavbar} >Restaurants</Link>
             </li>

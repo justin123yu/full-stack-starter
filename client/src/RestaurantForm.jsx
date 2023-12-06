@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import PhotoInput from "../src/Components/PhotoInput"
 import {useNavigate, useParams} from "react-router-dom";
-export default function RestaurantForm(){
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import "./RestaurantForm.scss";
 
+export default function RestaurantForm(){
+  const navigate = useNavigate();
   const [data, setData] = useState({
     Name: "",
     Location: "",
@@ -12,6 +16,8 @@ export default function RestaurantForm(){
     Comment: "",
     Map: ""
   });
+
+  const [isConfirmDeleteShowing, setIsConfirmDeleteShowing] = useState(false);
   const {id} = useParams();
 
   useEffect(()=> {
@@ -46,7 +52,25 @@ export default function RestaurantForm(){
       });
       const json = await response.json();
       console.log(json);
-      useNavigate("/restaurants");  
+      navigate("/restaurants");  
+    } catch (error){
+      console.log(error);
+    }
+  }
+  const handleClose = () => setIsConfirmDeleteShowing(false);
+  function showConfirmDeleteModel(){
+    setIsConfirmDeleteShowing(true);
+  }
+  async function onDelete(){
+    handleClose();
+    try{
+      await fetch(`/api/restaurants/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        }
+      });
+      navigate("/restaurants");  
     } catch (error){
       console.log(error);
     }
@@ -71,8 +95,25 @@ export default function RestaurantForm(){
             </div>
             <label className="form-label">Restaurant Map</label>
             <input type="text" onChange={handler} className="form-control" value={data.Map} id="Map" name="Map" aria-describedby="Name"></input>
-          <button type="submit" className="btn btn-primary">Submit</button>
+            <div id="buttons">
+              <button type="submit" className="btn btn-primary">Submit</button>
+              {id && <button type="button" onClick={showConfirmDeleteModel} className="btn btn-danger">Delete</button> }
+            </div>
         </form>
+        <Modal show={isConfirmDeleteShowing} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Are you sure?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete this restaurant?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            No
+          </Button>
+          <Button variant="danger" onClick={onDelete}>
+            Yes
+          </Button>
+        </Modal.Footer>
+      </Modal>
       </>
   </main>
     )

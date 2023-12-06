@@ -44,8 +44,8 @@ function Cards(){
                 <div className="card-body">
                   <h5 className="card-title text-center">{items.Name}</h5>
                   <p className="card-text">{items.Comment}</p>
-                  <div className="card-footer text-body-secondary">
-                    <Link className='btn btn-primary' to={"/restaurants/" + items.id}> Detail</Link>
+                  <div className="card-footer text-body-secondary mt-3">
+                    <Link className='btn btn-primary me-3' to={"/restaurants/" + items.id}> Detail</Link>
                     {user && <Link className='btn btn-primary' to={"/restaurants/" + items.id + "/edit"}> Edit</Link>}
                   </div>
                 </div>
