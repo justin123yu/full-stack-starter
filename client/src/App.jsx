@@ -14,7 +14,7 @@ import PasswordsRoutes from './Passwords/PasswordsRoutes';
 import Register from './Register';
 import UsersRoutes from './Users/UsersRoutes';
 import Restaurants from "./Restaurants";
-import Create from "./Create";
+import RestaurantForm from "./RestaurantForm";
 import Detail from './Detail';
 
 function App() {
@@ -37,8 +37,9 @@ function App() {
                 <Route path="/account/*" element={<UsersRoutes />} />
                 <Route path="/admin/*" element={<AdminRoutes />} />
                 <Route path="/restaurants" element={<Restaurants></Restaurants>}></Route>
-                <Route path="/create" element={<Create></Create>}></Route>
+                <Route path="/restaurants/new" element={<RestaurantForm></RestaurantForm>}></Route>
                 <Route path="/restaurants/:id" element={<Detail></Detail>}></Route>
+                <Route path="/restaurants/:id/edit" element={<RestaurantForm></RestaurantForm>}></Route>
               </Routes>
             </AppRedirects>
           }

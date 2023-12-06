@@ -60,7 +60,7 @@ function Header() {
               <Link className="nav-link" to="/restaurants" onClick={hideNavbar} >Restaurants</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/create" onClick={hideNavbar} >Create</Link>
+             {user && <Link className="nav-link" to="/restaurants/new" onClick={hideNavbar}> Create</Link>}
             </li>
             <div className="flex-grow-1 d-flex justify-content-end">
               {user && (

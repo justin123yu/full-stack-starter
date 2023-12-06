@@ -26,7 +26,7 @@ router.patch('/:id', async (req, res) => {
     try{
         const record = await models.Restaurant.findByPk(req.params.id);
         await record.update(_.pick(req.body, [
-          "Name", "Location", "Rating", "Comment", "Map"
+          "Name", "Location", "Rating", "Comment", "Map", "Photo"
         ]));
         res.json(record);
       } catch (err){
@@ -50,7 +50,7 @@ router.post('/', async (req, res) => {
 
       try{
         const record = await models.Restaurant.create(_.pick(req.body, [
-          "Name", "Location", "Rating", "Comment", "Map"
+          "Name", "Location", "Rating", "Comment", "Map", "Photo",
         ]));
         res.status(StatusCodes.CREATED).json(record);
       } catch (err){

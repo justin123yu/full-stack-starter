@@ -1,8 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 import { useStaticContext } from './StaticContext';
+import {useAuthContext} from "./AuthContext"
 
 function Home() {
   const staticContext = useStaticContext();
+  const {user}  = useAuthContext();
   return (
     <>
       <Helmet>

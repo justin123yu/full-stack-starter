@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import {Link} from "react-router-dom";
 import { useStaticContext } from './StaticContext';
+import {useAuthContext} from "./AuthContext";
 
 function Cards(){
 
     const [data, setData] = useState(null)
     const [isLoading, setLoading] = useState(false)
-    const staticContext = useStaticContext();
+    const {user} = useAuthContext();
     async function getData() {
       var records;
     
@@ -45,6 +46,7 @@ function Cards(){
                   <p className="card-text">{items.Comment}</p>
                   <div className="card-footer text-body-secondary">
                     <Link className='btn btn-primary' to={"/restaurants/" + items.id}> Detail</Link>
+                    {user && <Link className='btn btn-primary' to={"/restaurants/" + items.id + "/edit"}> Edit</Link>}
                   </div>
                 </div>
               </div>
